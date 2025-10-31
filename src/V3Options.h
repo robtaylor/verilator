@@ -301,6 +301,9 @@ private:
     bool m_traceStructs = false;    // main switch: --trace-structs
     bool m_noTraceTop = false;      // main switch: --no-trace-top
     bool m_traceUnderscore = false; // main switch: --trace-underscore
+    bool m_cxxrtlServer = false;    // main switch: --cxxrtl-server
+    int m_cxxrtlServerPort = 12345; // main switch: --cxxrtl-server-port
+    int m_cxxrtlReplayBufferMB = 100;  // main switch: --cxxrtl-replay-buffer-mb
     bool m_underlineZero = false;   // main switch: --underline-zero; undocumented old Verilator 2
     bool m_verilate = true;         // main switch: --verilate
     bool m_vpi = false;             // main switch: --vpi
@@ -544,6 +547,9 @@ public:
     bool traceParams() const { return m_traceParams; }
     bool traceStructs() const { return m_traceStructs; }
     bool traceUnderscore() const { return m_traceUnderscore; }
+    bool cxxrtlServer() const { return m_cxxrtlServer; }
+    int cxxrtlServerPort() const { return m_cxxrtlServerPort; }
+    int cxxrtlReplayBufferMB() const { return m_cxxrtlReplayBufferMB; }
     bool main() const { return m_main; }
     bool outFormatOk() const { return m_outFormatOk; }
     bool jsonOnly() const { return m_jsonOnly; }

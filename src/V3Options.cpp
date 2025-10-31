@@ -1757,6 +1757,21 @@ void V3Options::parseOptsList(FileLine* fl, const string& optdir, int argc,
     DECL_OPTION("-trace-underscore", OnOff, &m_traceUnderscore);
     DECL_OPTION("-trace-vcd", CbCall, [this]() { m_traceEnabledVcd = true; });
 
+    // CXXRTL debug server options
+    DECL_OPTION("-cxxrtl-server", CbOnOff, [this](bool flag) {
+        m_cxxrtlServer = flag;
+    });
+    DECL_OPTION("-cxxrtl-server-port", CbVal, [this, fl](const char* valp) {
+        m_cxxrtlServerPort = std::atoi(valp);
+        if (m_cxxrtlServerPort < 1 || m_cxxrtlServerPort > 65535)
+            fl->v3fatal("--cxxrtl-server-port must be 1-65535: " << valp);
+    });
+    DECL_OPTION("-cxxrtl-replay-buffer-mb", CbVal, [this, fl](const char* valp) {
+        m_cxxrtlReplayBufferMB = std::atoi(valp);
+        if (m_cxxrtlReplayBufferMB < 1)
+            fl->v3fatal("--cxxrtl-replay-buffer-mb must be >= 1: " << valp);
+    });
+
     DECL_OPTION("-U", CbPartialMatch, &V3PreShell::undef);
     DECL_OPTION("-underline-zero", OnOff, &m_underlineZero).undocumented();  // Deprecated
     DECL_OPTION("-no-unlimited-stack", CbCall, []() {});  // Processed only in bin/verilator shell
